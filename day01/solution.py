@@ -1,5 +1,9 @@
+import time
+
 with open("input.txt", "r") as f:
     lines = [line.strip() for line in f.readlines()]
+
+start_time = time.time()
 
 c_num = 50
 p1_count = 0
@@ -27,5 +31,6 @@ for l in lines:
     if (c_num == 0):
         p1_count += 1
 
+print("Elapsed:", time.time() - start_time, "seconds")
 print("Part 1: " + str(p1_count))
 print("Part 2: " + str(p2_count))

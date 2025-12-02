@@ -1,3 +1,5 @@
+import time
+
 with open("input.txt", "r") as f:
     line = ','.join([line.strip() for line in f.readlines()])
 
@@ -9,6 +11,7 @@ def is_repeating_once(s: str) -> bool:
 def is_repeating(s: str) -> bool:
     return s in (s + s)[1:-1]
 
+start_time = time.time()
 ranges = [r for r in line.split(',')]
 
 p1 = 0
@@ -27,5 +30,6 @@ for r in ranges:
         elif(is_repeating(c)):
             p2 += int(c)
 
+print("Elapsed:", time.time() - start_time, "seconds")
 print("Part 1:", p1)
 print("Part 2:", p2)
