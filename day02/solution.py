@@ -6,7 +6,7 @@ with open("input.txt", "r") as f:
 def is_repeating_once(s: str) -> bool:
     s1, s2 = s[:len(s) // 2], s[len(s) // 2:]
 
-    return s1== s2
+    return s1 == s2
 
 def is_repeating(s: str) -> bool:
     return s in (s + s)[1:-1]
