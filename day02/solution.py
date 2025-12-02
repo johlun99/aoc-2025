@@ -2,22 +2,22 @@ with open("input.txt", "r") as f:
     line = ','.join([line.strip() for line in f.readlines()])
 
 def is_repeating_once(s: str) -> bool:
-    f, s= s[:len(s) // 2], s[len(s) // 2:]
+    s1, s2 = s[:len(s) // 2], s[len(s) // 2:]
 
-    return f== s
+    return s1== s2
 
 def is_repeating(s: str) -> bool:
     return s in (s + s)[1:-1]
 
-ranges = [r for r in line.split(',') if r]
+ranges = [r for r in line.split(',')]
 
 p1 = 0
 p2 = 0
 
 for r in ranges:
-    start, end = r.split('-')
+    s, e = r.split('-')
 
-    for i in range(int(start), int(end) + 1):
+    for i in range(int(s), int(e) + 1):
         c = str(i)
 
         if (is_repeating_once(c)):
@@ -27,5 +27,5 @@ for r in ranges:
         elif(is_repeating(c)):
             p2 += int(c)
 
-print("Part 1: " + str(p1))
-print("Part 2: " + str(p2))
+print("Part 1:", p1)
+print("Part 2:", p2)
