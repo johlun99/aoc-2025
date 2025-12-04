@@ -3,28 +3,28 @@ import time
 with open("input.txt", "r") as f:
     grid = [list(line.strip()) for line in f.readlines()]
 
-def check_accessible_roll(lines: list[str], x: int, y: int) -> bool:
+def check_accessible_roll(grid: list[list], x: int, y: int) -> bool:
     counter = 0
 
-    for y1 in range(y - 1, y + 2):
-        if (y1 < 0 or y1 >= len(lines)):
+    for y2 in range(y - 1, y + 2):
+        if (y2 < 0 or y2 >= len(grid)):
             continue
 
-        for x1 in range(x - 1, x + 2):
-            if (x1 < 0 or x1 >= len(lines[0])):
+        for x2 in range(x - 1, x + 2):
+            if (x2 < 0 or x2 >= len(grid[0])):
                 continue
 
-            elif (x1 == x and y1 == y):
+            elif (x2 == x and y2 == y):
                 continue
 
-            if (lines[y1][x1] == '@'):
+            if (grid[y2][x2] == '@'):
                 counter += 1
 
     return  counter < 4
 
 start_time = time.time()
 
-roll_counter = 0
+picked_rolls = 0
 remaining_rolls = []
 
 new_grid = []
@@ -34,7 +34,7 @@ for y in range(len(grid)):
 
         if (grid[y][x] == '@' and check_accessible_roll(grid, x, y)):
             new_line.append('.')
-            roll_counter += 1
+            picked_rolls += 1
             continue
 
         elif (grid[y][x] == '@'):
@@ -46,8 +46,9 @@ for y in range(len(grid)):
 
 grid = new_grid
 
-print("Part 1:", roll_counter)
+print("Part 1:", picked_rolls)
 
+next_grid = grid
 while True:
     valid = False
     next_remaining = []
@@ -58,17 +59,18 @@ while True:
 
         if (check_accessible_roll(grid, x, y)):
             valid = True
-            roll_counter += 1
-            grid[y][x] = '.'
+            picked_rolls += 1
+            next_grid[y][x] = '.'
 
         else:
             next_remaining.append((x, y))
 
     remaining_rolls = next_remaining
 
+    grid = next_grid
     if (not valid):
         break
 
-print("Part 2:", roll_counter)
+print("Part 2:", picked_rolls)
 
 print("Elapsed:", time.time() - start_time, "seconds")
