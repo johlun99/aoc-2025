@@ -1,5 +1,7 @@
+import time
+
 with open("input.txt", "r") as f:
-    lines = [line.strip() for line in f.readlines()]
+    grid = [line.strip() for line in f.readlines()]
 
 def check_accessible_roll(lines: list[str], x: int, y: int):
     counter = 0
@@ -20,20 +22,22 @@ def check_accessible_roll(lines: list[str], x: int, y: int):
 
     return  counter < 4
 
+start_time = time.time()
+
 p1 = True
 roll_counter = 0
 
 while True:
     output = []
     c_counter = 0
-    for y in range(len(lines)):
+    for y in range(len(grid)):
         o_line = ""
-        for x in range(len(lines[0])):
-            if lines[y][x] == '.':
+        for x in range(len(grid[0])):
+            if grid[y][x] == '.':
                 o_line += '.'
                 continue
 
-            if (check_accessible_roll(lines, x, y)):
+            if (check_accessible_roll(grid, x, y)):
                 o_line += '.'
                 roll_counter += 1
                 c_counter += 1
@@ -43,7 +47,7 @@ while True:
 
         output.append(o_line)
 
-    lines = output
+    grid = output
 
     if (p1):
         print("Part 1:", roll_counter)
@@ -52,4 +56,6 @@ while True:
     if (c_counter <= 0):
         break
 
-print("Part 1:", roll_counter)
+print("Part 2:", roll_counter)
+
+print("Elapsed:", time.time() - start_time, "seconds")
